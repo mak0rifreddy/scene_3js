@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Simple Ball Grid Game</title>
+    <style>
+        body { display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; background: #222; color: white; font-family: sans-serif; }
+        canvas { border: 2px solid #555; background: #333; }
+        .info { position: absolute; top: 10px; }
+    </style>
+	
+	 <script type="importmap">
+    {
+      "imports": {
+        "three": "'https://esm.sh/three'",
+        "three/addons/": "'https://esm.sh/three'"
+      }
+    }
+  </script>
+  
+</head>
+<body>
+    <div class="info">Use Arrow Keys to Move</div>
+    <canvas id="gameCanvas" width="600" height="600"></canvas>
+
+
+	<script type="module">
+	
+		import * as THREE from 'three';
+		import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+		
+        const canvas = document.getElementById('gameCanvas');
+        // 1. Setup Scene, Camera, and Renderer
+		const scene = new THREE.Scene();
+		const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+		const renderer = new THREE.WebGLRenderer({ canvas: document.querySelector('#gameCanvas'), alpha: true });
+		renderer.setSize(window.innerWidth, window.innerHeight);
+		// 2. Add Lighting
+		const light = new THREE.DirectionalLight(0xffffff, 1);
+		light.position.set(2, 2, 5);
+		scene.add(light, new THREE.AmbientLight(0xffffff, 0.5));
+
+		// 3. Load External 3D Object
+		const loader = new GLTFLoader();
+		loader.load('pixellabs-glb-3347.glb', (gltf) => {
+			scene.add(gltf.scene);
+		}, undefined, (error) => {
+			console.error('An error occurred loading the model:', error);
+		});
+
+		camera.position.z = 5;
+
+		// 4. Animation Loop
+		function animate() {
+			requestAnimationFrame(animate);
+			renderer.render(scene, camera);
+		}
+		animate();
+		
+		// Handle window resizing
+        window.addEventListener('resize', () => {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        });
+   	</script>
+</body>
+</html>
+
