@@ -1,32 +1,30 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Simple Ball Grid Game</title>
+    <title>Three.js Scene</title>
     <style>
         body { display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; background: #222; color: white; font-family: sans-serif; }
+		canvas { display: block; background: #333; }
         canvas { border: 2px solid #555; background: #333; }
-        .info { position: absolute; top: 10px; }
+        .info { position: absolute; top: 10px; width: 100%; text-align: center; pointer-events: none; }
     </style>
 	
 	 <script type="importmap">
-    {
-      "imports": {
-        "three": "'https://esm.sh/three'",
-        "three/addons/": "'https://esm.sh/three'"
-      }
-    }
-  </script>
+	{
+	  "imports": {
+	    "three": "https://esm.sh/three",
+	    "three/addons/": "https://esm.sh/three/examples/jsm/"
+	  }
+	}
+	</script>
   
 </head>
 <body>
     <div class="info">Use Arrow Keys to Move</div>
-    <canvas id="gameCanvas" width="600" height="600"></canvas>
-
 
 	<script type="module">
-	
-		import * as THREE from 'three';
-		import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+	  import * as THREE from 'three';
+	  import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 		
         const canvas = document.getElementById('gameCanvas');
         // 1. Setup Scene, Camera, and Renderer
@@ -41,7 +39,7 @@
 
 		// 3. Load External 3D Object
 		const loader = new GLTFLoader();
-		loader.load('pixellabs-glb-3347.glb', (gltf) => {
+		loader.load('random_model.glb', (gltf) => {
 			scene.add(gltf.scene);
 		}, undefined, (error) => {
 			console.error('An error occurred loading the model:', error);
