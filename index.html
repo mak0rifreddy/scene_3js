@@ -20,7 +20,7 @@
   
 </head>
 <body>
-    <div class="info">Test 4 </div>
+    <div class="info">Test 5 </div>
 	<canvas id="gameCanvas"></canvas>
 	<script type="module">
 	  import * as THREE from 'three';
@@ -36,9 +36,6 @@
 		const light = new THREE.DirectionalLight(0xffffff, 1);
 		light.position.set(2, 2, 5);
 		scene.add(light, new THREE.AmbientLight(0xffffff, 0.5));
-		//test cube to see if engine is running
-		const box = new THREE.Mesh(new THREE.BoxGeometry(), new THREE.MeshStandardMaterial({color: 0x00ff00}));
-		scene.add(box);
 		
 		// 3. Load External 3D Object
 		const loader = new GLTFLoader();
