@@ -4,8 +4,8 @@
     <title>Three.js Scene</title>
     <style>
         body { display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; background: #222; color: white; font-family: sans-serif; }
-		canvas { display: block; background: #333; }
-        canvas { border: 2px solid #555; background: #333; }
+		canvas {display: block; background: #333; border: 2px solid #555;
+}
         .info { position: absolute; top: 10px; width: 100%; text-align: center; pointer-events: none; }
     </style>
 	
@@ -23,13 +23,23 @@
     <div class="info">Test 5 </div>
 	<canvas id="gameCanvas"></canvas>
 	<script type="module">
-	  import * as THREE from 'three';
-	  import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+		import * as THREE from 'three';
+		import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+		import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 		
         const canvas = document.getElementById('gameCanvas');
         // 1. Setup Scene, Camera, and Renderer
 		const scene = new THREE.Scene();
+		scene.background = new THREE.Color(0x222222); // Match your CSS background
+		scene.fog = new THREE.FogExp2(0x222222, 0.1); // Objects fade into the dark
+		
 		const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+		//controls
+		const controls = new OrbitControls(camera, renderer.domElement);
+		// Smooth out the movement
+		controls.enableDamping = true; 
+		camera.position.set(0, 2, 5);
+		
 		const renderer = new THREE.WebGLRenderer({ canvas: canvas, alpha: true });
 		renderer.setSize(window.innerWidth, window.innerHeight);
 		// 2. Add Lighting
@@ -51,6 +61,7 @@
 		function animate() {
 			requestAnimationFrame(animate);
 			renderer.render(scene, camera);
+			controls.update();
 		}
 		animate();
 		
