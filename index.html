@@ -20,6 +20,8 @@
   
 </head>
 <body>
+    <div class="info">Test 4 </div>
+	<canvas id="gameCanvas"></canvas>
 	<script type="module">
 	  import * as THREE from 'three';
 	  import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
@@ -28,7 +30,7 @@
         // 1. Setup Scene, Camera, and Renderer
 		const scene = new THREE.Scene();
 		const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-		const renderer = new THREE.WebGLRenderer({ canvas: document.querySelector('#gameCanvas'), alpha: true });
+		const renderer = new THREE.WebGLRenderer({ canvas: canvas, alpha: true });
 		renderer.setSize(window.innerWidth, window.innerHeight);
 		// 2. Add Lighting
 		const light = new THREE.DirectionalLight(0xffffff, 1);
